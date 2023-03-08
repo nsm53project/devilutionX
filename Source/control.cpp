@@ -265,6 +265,8 @@ void PrintInfo(const Surface &out)
 	// which throws off the vertical centering
 	infoArea.position.y += spacing / 2;
 
+	SpeakText(InfoString.str().data());
+
 	DrawString(out, InfoString, infoArea, InfoColor | UiFlags::AlignCenter | UiFlags::VerticalCenter | UiFlags::KerningFitSpacing, 2, lineHeight);
 }
 

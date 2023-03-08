@@ -9,7 +9,7 @@ jobs:
       - run: echo deb http://deb.debian.org/debian buster-backports main >> /etc/apt/sources.list.d/debian-backports.list
       - run: apt-get update -y
       - run: apt-get install -y -t 'buster-backports*' cmake
-      - run: apt-get install -y g++ libsdl2-dev libbz2-dev git rpm wget smpq cmake libsodium-dev libpng-dev file
+      - run: apt-get install -y g++ libsdl2-dev libbz2-dev git rpm wget smpq cmake libsodium-dev libpng-dev libspeechd-dev file
       - run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -DCPACK=ON -DCMAKE_INSTALL_PREFIX=/usr
       - run: cmake --build build -j 2 --target package
       - store_artifacts: {path: ./build/devilutionx, destination: devilutionx_linux_x86_64}

@@ -27,7 +27,7 @@ jobs:
     - name: Create Build Environment
       run: >
         sudo apt-get update &&
-        sudo apt-get install -y cmake file g++ git libfmt-dev libsdl1.2-dev libsodium-dev libpng-dev libbz2-dev rpm smpq
+        sudo apt-get install -y cmake file g++ git libfmt-dev libsdl1.2-dev libsodium-dev libpng-dev libbz2-dev rpm smpq libspeechd-dev
 
     - name: Cache CMake build folder
       uses: actions/cache@v2

@@ -231,6 +231,9 @@ endif()
 
 add_devilutionx_library(libdevilutionx OBJECT ${libdevilutionx_SRCS})
 target_include_directories(libdevilutionx PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+if(NOT USE_SDL1)
+  target_include_directories(libdevilutionx PUBLIC ${Speechd_INCLUDE_DIRS})
+endif()
 
 # Use file GENERATE instead of configure_file because configure_file
 # does not support generator expressions.
@@ -265,6 +268,10 @@ target_link_libraries(libdevilutionx PUBLIC
   hoehrmann_utf8
   ${libdevilutionx_DEPS}
 )
+
+if(NOT WIN32)
+  target_link_libraries(libdevilutionx PUBLIC speechd)
+endif()
 
 if(NOT USE_SDL1)
   target_link_libraries(libdevilutionx PUBLIC SDL2::SDL2_image)

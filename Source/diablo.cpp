@@ -6,6 +6,9 @@
 #include <array>
 
 #include <fmt/format.h>
+#ifndef WIN32
+#include <speech-dispatcher/libspeechd.h>
+#endif
 
 #include <config.h>
 
@@ -135,6 +138,18 @@ MouseActionType LastMouseButtonAction = MouseActionType::None;
 extern void plrctrls_after_check_curs_move();
 extern void plrctrls_every_frame();
 extern void plrctrls_after_game_logic();
+
+SPDConnection *Speechd;
+std::string SpokenText;
+void SpeakText(const char* text)
+{
+	if (!SpokenText.empty() && SpokenText.compare(text) == 0)
+		return;
+
+	SpokenText = text;
+
+	spd_say(Speechd, SPD_TEXT, text);
+}
 
 namespace {
 
@@ -1114,6 +1129,8 @@ void ApplicationInit()
 	if (*sgOptions.Graphics.showFPS)
 		EnableFrameCount();
 
+	Speechd = spd_open("DevilutionX", "DevilutionX", NULL, SPD_MODE_SINGLE);
+
 	init_create_window();
 	was_window_init = true;
 
@@ -1216,6 +1233,8 @@ void DiabloDeinit()
 	UnloadFonts();
 	if (SDL_WasInit(SDL_INIT_EVERYTHING & ~SDL_INIT_HAPTIC) != 0)
 		SDL_Quit();
+
+	spd_close(Speechd);
 }
 
 void LoadLvlGFX()

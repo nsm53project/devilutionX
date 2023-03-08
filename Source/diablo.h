@@ -81,6 +81,7 @@ extern char gszProductName[64];
 
 extern MouseActionType LastMouseButtonAction;
 
+void SpeakText(const char* text);
 void InitKeymapActions();
 void SetCursorPos(Point position);
 void FreeGameMem();
